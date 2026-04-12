@@ -217,18 +217,18 @@ export function EditContainerPage() {
 
             if (!isAvailable) {
               return (
-                <Tooltip key={tab.id} delayDuration={500}>
-                  <TooltipTrigger asChild>
-                    <div style={{ cursor: 'not-allowed' }}>
-                      <TabsTrigger
-                        value={tab.id}
-                        disabled={true}
-                        className="relative opacity-50 w-full"
-                        style={{ pointerEvents: 'none' }}
-                      >
-                        {tab.label}
-                      </TabsTrigger>
-                    </div>
+                <Tooltip key={tab.id}>
+                  <TooltipTrigger
+                    render={<div style={{ cursor: 'not-allowed' }} />}
+                  >
+                    <TabsTrigger
+                      value={tab.id}
+                      disabled={true}
+                      className="relative opacity-50 w-full"
+                      style={{ pointerEvents: 'none' }}
+                    >
+                      {tab.label}
+                    </TabsTrigger>
                   </TooltipTrigger>
                   <TooltipContent side="bottom">
                     <div className="text-center">

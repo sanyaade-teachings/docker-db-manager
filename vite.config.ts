@@ -14,7 +14,7 @@ export default defineConfig(async () => ({
     },
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
         'create-container': path.resolve(__dirname, 'create-container.html'),

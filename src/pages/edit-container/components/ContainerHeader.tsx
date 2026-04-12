@@ -60,16 +60,18 @@ export function ContainerHeader({
         <div className="flex items-center gap-2 ml-4">
           {/* Start button - only shown when stopped */}
           {isStopped && (
-            <Tooltip delayDuration={500}>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={onStart}
-                  className="h-9 w-9"
-                >
-                  <Play className="h-4 w-4" />
-                </Button>
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={onStart}
+                    className="h-9 w-9"
+                  />
+                }
+              >
+                <Play className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent side="bottom">
                 <p className="font-medium">Start Container</p>
@@ -79,16 +81,18 @@ export function ContainerHeader({
 
           {/* Stop button - only shown when running */}
           {isRunning && (
-            <Tooltip delayDuration={500}>
-              <TooltipTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={onStop}
-                  className="h-9 w-9"
-                >
-                  <Square className="h-4 w-4" />
-                </Button>
+            <Tooltip>
+              <TooltipTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={onStop}
+                    className="h-9 w-9"
+                  />
+                }
+              >
+                <Square className="h-4 w-4" />
               </TooltipTrigger>
               <TooltipContent side="bottom">
                 <p className="font-medium">Stop Container</p>
@@ -97,16 +101,18 @@ export function ContainerHeader({
           )}
 
           {/* Delete button - always available but requires confirmation */}
-          <Tooltip delayDuration={500}>
-            <TooltipTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={onDelete}
-                className="h-9 w-9 text-destructive hover:bg-destructive hover:text-destructive-foreground"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={onDelete}
+                  className="h-9 w-9 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                />
+              }
+            >
+              <Trash2 className="h-4 w-4" />
             </TooltipTrigger>
             <TooltipContent side="bottom">
               <p className="font-medium">Delete Container</p>

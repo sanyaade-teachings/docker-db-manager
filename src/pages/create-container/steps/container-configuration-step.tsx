@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { UseFormReturn } from 'react-hook-form';
 import {
   DynamicFieldGroups,
@@ -77,7 +77,7 @@ export function ContainerConfigurationStep({ form }: Props) {
 
         <motion.div variants={itemVariants}>
           <Accordion
-            type="multiple"
+            multiple
             defaultValue={['container', 'auth']}
             className="w-full"
           >

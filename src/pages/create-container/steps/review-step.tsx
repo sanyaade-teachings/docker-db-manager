@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { UseFormReturn } from 'react-hook-form';
 import { databaseRegistry } from '@/features/databases/registry/database-registry';
 import { Card, CardContent } from '../../../shared/components/ui/card';

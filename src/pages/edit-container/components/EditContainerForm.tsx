@@ -41,7 +41,7 @@ export function EditContainerForm({
     <Form {...form}>
       <div className="space-y-4">
         <Accordion
-          type="multiple"
+          multiple
           defaultValue={['container', 'auth', 'advanced']}
           className="w-full"
         >

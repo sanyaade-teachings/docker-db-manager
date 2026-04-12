@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { Button } from '../../../shared/components/ui/button';
 import { Form } from '../../../shared/components/ui/form';
 import { useContainerCreationWizard } from '../hooks/use-container-creation-wizard';

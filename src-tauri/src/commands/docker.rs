@@ -16,6 +16,19 @@ pub async fn sync_containers_with_docker(
     let docker_service = DockerService::new();
     let storage_service = StorageService::new();
 
+    // Guard: if in-memory store is empty (app just started and load() was never
+    // called), populate it from file before syncing. Without this, a successful
+    // docker ps on an empty map would overwrite databases.json with [].
+    let is_empty = {
+        let db_map = databases.lock().unwrap();
+        db_map.is_empty()
+    };
+    if is_empty {
+        let loaded = storage_service.load_databases_from_store(&app).await?;
+        let mut db_map = databases.lock().unwrap();
+        *db_map = loaded;
+    }
+
     // Sync with Docker
     let mut container_map = {
         let db_map = databases.lock().unwrap();

@@ -18,7 +18,15 @@ export function useApp() {
   const docker = useDockerStatus();
 
   /**
-   * Initial container loading
+   * Always load from file at mount — works even when Docker is not running.
+   * get_all_databases returns file data gracefully if Docker is unavailable.
+   */
+  useEffect(() => {
+    containerList.load();
+  }, []);
+
+  /**
+   * Re-load when Docker becomes available to get fresh container statuses.
    */
   useEffect(() => {
     if (docker.isDockerAvailable) {

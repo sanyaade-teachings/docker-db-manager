@@ -157,7 +157,7 @@ pub async fn update_container_from_docker_args(
 
     // Capture previous name for later cleanup
     let previous_name = container.name.clone();
-    
+
     // Capture original status to preserve it after recreation
     let original_status = container.status.clone();
 
@@ -173,7 +173,7 @@ pub async fn update_container_from_docker_args(
     } else {
         vec![]
     };
-    
+
     // Track if we need to cleanup old volumes after successful update
     let should_cleanup_old_volumes = container.stored_persist_data && !request.metadata.persist_data;
 
@@ -298,7 +298,7 @@ pub async fn update_container_from_docker_args(
         container.container_id = Some(real_container_id.clone());
         container.stored_persist_data = request.metadata.persist_data;
         container.stored_enable_auth = request.metadata.enable_auth;
-        
+
         // If the original container was stopped, stop the new one too
         if original_status != "running" {
             docker_service.stop_container(&app, &real_container_id).await?;
@@ -397,14 +397,25 @@ pub async fn get_all_databases(
         *db_map = loaded_databases;
     }
 
-    // Sync with Docker to get real status
+    // Sync with Docker to get real status.
+    // If Docker is not running, return file data as-is without saving —
+    // this prevents overwriting databases.json with stale/empty data.
     let mut container_map = {
         let db_map = databases.lock().unwrap();
         db_map.clone()
     };
-    docker_service
+    let docker_available = docker_service
         .sync_containers_with_docker(&app, &mut container_map)
-        .await?;
+        .await
+        .is_ok();
+
+    if !docker_available {
+        let result = {
+            let db_map = databases.lock().unwrap();
+            db_map.values().cloned().collect()
+        };
+        return Ok(result);
+    }
 
     // Update the database store with synced data
     {
